@@ -1,0 +1,24 @@
+[Description]  
+Name=自定义码
+MaxCodes = 4
+UsedCodes='abcdefghijklmnopqrstuvwxy
+WildChar=z
+Sort=1
+
+[Text]
+的a
+地b
+得c
+我abaw
+你aban
+他abat
+我们wamn
+你们wbmn
+他们wcmn
+计算机jsj'
+这是美国微软公司码表输入法的一个练习仅作为参考定义一个很长的词组abcd
+学习ipnu
+美国微软公司ultn
+中文olaa
+软件olaa
+内心的喜悦无法言表olba

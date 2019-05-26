@@ -1,0 +1,180 @@
+
+; This section is processed by both the DOS and WINDOWS portions of setup
+; for temporarily renaming profile strings during setup. THE RENAME
+; OPERATION WILL ONLY TAKE PLACE IF THE ORIGINAL PROFILE STRING EXISTS AND HAS
+; A RIGHT HAND SIDE STRING.
+;
+; .ini file,  section name, temporary profile name, Original profile name.
+;
+[ini.upd.patches]
+  system.ini, Boot,    "olddrivers"    ,"drivers"
+  win.ini   , Desktop, "oldwallpaper"  ,"wallpaper"
+  system.ini, Boot,    "oldtaskman"    ,"taskman.exe"
+  system.ini, Boot,    "oldshell"      ,"shell"
+
+[ini.upd.31]
+;
+; WARNING: This section only works on win.ini or system.ini !!
+;
+; .ini file,  section,  old line to be replaced,  new line,  rename operater.
+;
+; If the "old line to be replaced" field is empty, setup will assume that
+; the new line is to be added. The rename operater tells setup to retain the RHS
+; of the profile. This is used as a renaming mechanism during upgrades.
+; Nb : Simple string substitution is implemented :
+;     ?P means any valid MS-DOS path
+;
+  system.ini, Boot,                               ,   "taskman.exe="
+  system.ini, mci,     "waveaudio="               ,   "WaveAudio=mciwave.drv"
+  system.ini, mci,     "sequencer="               ,   "Sequencer=mciseq.drv"
+  system.ini, mci,     "cdaudio="                 ,   "CDAudio=mcicda.drv"
+  system.ini, drivers,                            ,   "timer=timer.drv"
+  system.ini, drivers,         "midimapper="      ,   "midimapper=midimap.drv"
+  system.ini, drivers, "midi=adlib.drv"           ,   "midi=msadlib.drv"          ,rename
+  system.ini, drivers, "midi1=adlib.drv"          ,   "midi1=msadlib.drv"         ,rename
+  system.ini, drivers, "midi2=adlib.drv"          ,   "midi2=msadlib.drv"         ,rename
+  system.ini, drivers, "midi3=adlib.drv"          ,   "midi3=msadlib.drv"         ,rename
+  system.ini, drivers, "midi4=adlib.drv"          ,   "midi4=msadlib.drv"         ,rename
+  system.ini, 386Enh,       "keyboard=?Pbpvkd.386",
+  system.ini, 386Enh,          "keyboard="        ,   "keyboard=*vkd"             ,noclobber
+  system.ini, 386Enh,          "device=vpicda.386",   "device=*vpicd"
+  system.ini, 386Enh,          "device=*vhd"      ,   "device=*blockdev"
+  system.ini, 386Enh,          "device=*vpd"      ,
+  system.ini, 386Enh,          "device=vdmad.386" ,   "device=*vdmad"
+  system.ini, 386Enh,          "device=vdmadx.386",   "device=*vdmad"
+  system.ini, 386Enh,                             ,   "device=*pagefile"
+  system.ini, 386Enh,       "device=?Pvtdapi.386" ,   "device=vtdapi.386"
+  system.ini, 386Enh,       "display=*vddcherc"   ,   "display=vddcherc.386"       ,rename
+  system.ini, 386Enh,       "display=*vddcvga"    ,   "display=*vddvga"            ,rename
+  system.ini, NonWindowsApp,"localtsrs="          ,   "localtsrs=dosedit,ced"  ,noclobber
+  win.ini   , Sounds,  "SystemDefault="           ,   "SystemDefault=ding.wav, Default Beep"      ,noclobber
+  win.ini   , Sounds,  "SystemExclamation="       ,   "SystemExclamation=chord.wav, Exclamation"  ,noclobber
+  win.ini   , Sounds,  "SystemStart="             ,   "SystemStart=tada.wav, Windows Start"       ,noclobber
+  win.ini   , Sounds,  "SystemExit="              ,   "SystemExit=chimes.wav, Windows Exit"       ,noclobber
+  win.ini   , Sounds,  "SystemHand="              ,   "SystemHand=chord.wav, Critical Stop"       ,noclobber
+  win.ini   , Sounds,  "SystemQuestion="          ,   "SystemQuestion=chord.wav, Question"        ,noclobber
+  win.ini   , Sounds,  "SystemAsterisk="          ,   "SystemAsterisk=chord.wav, Asterisk"        ,noclobber
+  win.ini   , "mci extensions",                   ,   "wav=waveaudio"
+  win.ini   , "mci extensions",                   ,   "mid=sequencer"
+  win.ini   , "mci extensions",                   ,   "rmi=sequencer"
+  win.ini   , FontSubstitutes,                    ,   "Helv=MS Sans Serif"
+  win.ini   , FontSubstitutes,                    ,   "Tms Rmn=MS Serif"
+  win.ini   , FontSubstitutes, "Courier=Courier New" ,
+  win.ini   , FontSubstitutes,                    ,   "Times=Times New Roman"
+  win.ini   , FontSubstitutes,                    ,   "Helvetica=Arial"
+  win.ini   , "Microsoft Word 2.0", "HPDSKJET="   ,   "HPDSKJET=+1"             ,noclobber
+  win.ini   , windows,                            ,   "DefaultDBCSFont=MingLi.FOT"
+  win.ini   , "Associated CharSet", "CHINESEBIG5(88)=", "CHINESEBIG5(88)=yes"
+  win.ini   , "Associated CharSet", "OEM(FF)=",         "OEM(FF)=yes"
+  win.ini   , "Associated CharSet", "SYMBOL(02)=",      "SYMBOL(02)=no"
+  win.ini   , "Associated CharSet", "ANSI(00)=",        "ANSI(00)=yes"
+  win.ini   , "Associated DefaultFonts", "FontPackageDecorative=", "FontPackageDecorative=MingLi"
+  win.ini   , "Associated DefaultFonts", "FontPackageScript=", "FontPackageScript=MingLi"
+  win.ini   , "Associated DefaultFonts", "FontPackageModern=", "FontPackageModern=MingLi"
+  win.ini   , "Associated DefaultFonts", "FontPackageSwiss=", "FontPackageSwiss=MingLi"
+  win.ini   , "Associated DefaultFonts", "FontPackageRoman=", "FontPackageRoman=MingLi"
+  win.ini   , "Associated DefaultFonts", "FontPackageDontCare=", "FontPackageDontCare=MingLi"
+  win.ini   , "Associated Fonts"
+  win.ini   , "PreCache", "PreCacheCharacters=", "PreCacheCharacters=系统错误取消重试"
+  win.ini   , Desktop, "GroupPreCacheChars=", "GroupPreCacheChars=主组启动附件应用程序游戏"
+  win.ini   , Desktop, "PreCacheCharacters=", "PreCacheCharacters=文件管理器、控制面板、打印、剪贴板、方式设置、编辑、读我、造字、书写器、调色板、终端仿真程序、记事本、记录器、卡片盒、日历、计算器、时钟、对象包装程序、字符映射表、媒体播放机、录音机、接龙、扫雷"
+  win.ini   , "DBCSFonts", "PreCacheCharacters=", "PreCacheCharacters="文件、新旧、打开、移动、复制、删除特性、运行、退出系统、使用任选项、自动排列最小化、保存设定值、窗口并列显示、级联主组、启动附件、游戏、帮助求助说明、搜索查找、程序管理员、还原、关闭、大小、下一个、切换、认可确定"
+  win.ini   , "DBCSFonts", "AssociatedSystemFont=", "AssociatedSystemFont=TT,MingLi.FOT "
+  win.ini   , "DBCSFonts", "SystemFont=", "SystemFont="
+  ;
+  ; Remove these Win 3.0 font entries from win.ini because they have either
+  ; been replaced or removed for Win 3.1
+  ;
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (CGA res)="
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (EGA res)="
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (60 dpi)="
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (120 dpi)="
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (VGA res)="
+  win.ini, Fonts, "Helv 8,10,12,14,18,24 (8514/a res)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (CGA res)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (EGA res)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (60 dpi)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (120 dpi)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (VGA res)="
+  win.ini, Fonts, "Tms Rmn 8,10,12,14,18,24 (8514/a res)="
+  ;
+  ; Remove these font entries if they exist because these .ini entries
+  ; are obsolete. We use "TrueType" rather than "Scalable"
+  ;
+  win.ini, Fonts, "Arial (Scalable)="
+  win.ini, Fonts, "Arial Bold (Scalable)="
+  win.ini, Fonts, "Arial Bold Italic (Scalable)="
+  win.ini, Fonts, "Arial Italic (Scalable)="
+  win.ini, Fonts, "Courier (Scalable)="
+  win.ini, Fonts, "Courier Bold (Scalable)="
+  win.ini, Fonts, "Courier Italic (Scalable)="
+  win.ini, Fonts, "Courier Bold Italic (Scalable)="
+  win.ini, Fonts, "Courier (TrueType)"
+  win.ini, Fonts, "Courier Bold (TrueType)"
+  win.ini, Fonts, "Courier Bold Italic (TrueType)"
+  win.ini, Fonts, "Courier Italic (TrueType)"
+  win.ini, Fonts, "Times New Roman (Scalable)="
+  win.ini, Fonts, "Times New Roman Bold (Scalable)="
+  win.ini, Fonts, "Times New Roman Bold Italic (Scalable)="
+  win.ini, Fonts, "Times New Roman Italic (Scalable)="
+  win.ini, Fonts, "Symbol PS (Scalable)="
+  win.ini, Fonts, "Symbol (Scalable)="
+  ;
+  ; Remove these font entries if they exist because these .ini entries
+  ; are obsolete. We use "Plotter" rather than "All res" Also, 8 point was
+  ; added to the EGA res courier so we remove the old "Courier 10,12,15" font.
+  ;
+  win.ini, Fonts, "Roman (All res)="
+  win.ini, Fonts, "Script (All res)="
+  win.ini, Fonts, "Modern (All res)="
+  win.ini, Fonts, "Courier 10,12,15 (EGA res)="
+  ;
+  ; The following lines will cause the MS-DOS half of setup to effectivly
+  ; rename the [Fonts] section in win.ini. Setup does this by adding the
+  ; [wt4gpi8s56bz] string to the [Fonts] section and then deleting the
+  ; [Fonts] section string. Later, in the windows half of setup, it will
+  ; rename [wt4gpi8s56bz] back to [Fonts]. Do not change these names!
+  ;
+  win.ini, Fonts,              , "[wt4gpi8s56bz]"
+  win.ini, Fonts,   "[Fonts]"  ,
+
+  ; The following line makes USER skip persistent net connections
+  ; USER immediately deletes the entry so it is a onetime thing.
+  win.ini, windows,, "SetupWin=1"
+
+  ; The following lines fix problems with APPS
+  win.ini, Compatibility,"NOTSHELL=", "NOTSHELL=0x0001"
+  win.ini, Compatibility,"WPWINFIL=", "WPWINFIL=0x0006"
+  win.ini, Compatibility,"CCMAIL=", "CCMAIL=0x0008"
+  win.ini, Compatibility,"AMIPRO=", "AMIPRO=0x0010"
+  win.ini, Compatibility,"REM=", "REM=0x8022"
+  win.ini, Compatibility,"PIXIE=", "PIXIE=0x0040"
+  win.ini, Compatibility,"CP=", "CP=0x0040"
+  win.ini, Compatibility,"JW=", "JW=0x42080"
+  win.ini, Compatibility,"TME=", "TME=0x0100"
+  win.ini, Compatibility,"VB=", "VB=0x0200"
+  win.ini, Compatibility,"WIN2WRS=", "WIN2WRS=0x1210"
+  win.ini, Compatibility,"PACKRAT=", "PACKRAT=0x0800"
+  win.ini, Compatibility,"VISION=", "VISION=0x0040"
+  win.ini, Compatibility,"MCOURIER=", "MCOURIER=0x0800"
+  win.ini, Compatibility,"_BNOTES=", "_BNOTES=0x24000"
+  win.ini, Compatibility,"MILESV3=", "MILESV3=0x1000"
+  win.ini, Compatibility,"PM4=", "PM4=0x2000"
+  win.ini, Compatibility,"DESIGNER=", "DESIGNER=0x2000"
+  win.ini, Compatibility,"PLANNER=", "PLANNER=0x2000"
+  win.ini, Compatibility,"DRAW=", "DRAW=0x2000"
+  win.ini, Compatibility,"WINSIM=", "WINSIM=0x2000"
+  win.ini, Compatibility,"CHARISMA=", "CHARISMA=0x2000"
+  win.ini, Compatibility,"PR2=", "PR2=0x2000"
+  win.ini, Compatibility,"PLUS=", "PLUS=0x1000"
+  win.ini, Compatibility,"ED=", "ED=0x00010000"
+  win.ini, Compatibility,"PP=",
+  win.ini, Compatibility,"APORIA=", "APORIA=0x0100"
+  win.ini, Compatibility,"EXCEL=", "EXCEL=0x1000"
+  win.ini, Compatibility,"GUIDE=", "GUIDE=0x1000"
+  win.ini, Compatibility,"NETSET2=", "NETSET2=0x0100"
+  win.ini, Compatibility,"W4GL=", "W4GL=0x4000"
+  win.ini, Compatibility,"W4GLR=","W4GLR=0x4000"
+  win.ini, Compatibility,"TURBOTAX=","TURBOTAX=0x00080000"
+
+

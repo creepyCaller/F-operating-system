@@ -1,0 +1,832 @@
+SETUP.TXT
+━━━━━
+
+    本文件包含运行Windows Setup时可能出现的问题, 并且描述了在运行Windows或Setup
+时, 使用终止并驻留(TSR)程序和驱动程序可能出现的问题. 如果你正在使用TSR程序, 或者
+在安装Windows 3.1时遇到了一些问题, 那么在再次运行Setup之前, 请先阅读本文件.
+
+
+一般安装说明
+━━━━━━
+    本部分包括对一些特殊的系统配置的说明, 这些系统配置可能会导致Windows安装失败.
+对于出现的每个问题, 本部分都给出了相应的解决办法.
+
+    如果你正在使用本文件所列的硬件或软件产品, 在运行Setup之前, 请采纳我们的建议.
+
+
+MS-DOS 屏幕保护程序(Screen Savers)
+─────────────────
+    如果你正在使用MS-DOS屏幕保护程序, 那么在运行Setup之前, 必须将其关闭, 否则在
+运行Setup时, 这些屏幕保护程序可能产生问题.
+
+
+使用MS-DOS 5.0版本和EGA或VGA的COMPAQ计算机
+─────────────────────
+    如果你正在使用MS-DOS 5.0的升级版本, 请检查CONFIG.SYS文件, 保证驱动程序出现次
+序如下:
+
+     HIMEM.SYS
+     EMM386.EXE
+     ANSI.SYS
+
+注: 如果你使用的是COMPAQ MS-DOS 5.0, 则用HIMEM.EXE代替HIMEM.SYS, 用CEMM.EXE代替
+    EMM386.EXE.
+
+    如果ANSI.SYS在HIMEM.SYS或EMM386.EXE(在COMPAQ MS-DOS 5.0下,为HIMEM.EXE或
+CEMM.EXE)之前加载, Setup可能在Windows安装之前再次启动你的系统.另外, 如果你使用 
+DOS=HIGH,UMB 命令行将MS-DOS装入上位内存(upper memory), 那么在加载ANSI.SYS之前加
+载EMM386.EXE(或CEMM.EXE), 可以在COMPAQ 计算机上创建最大容量的上位内存空间.
+
+
+AT&T Safari 计算机
+─────────
+   如果你有一台AT&T Safari计算机, 那么在系统中, 不能保留两种版本的Windows(3.0版
+和3.1版). 必须将3.0版升级. 如果安装Windows 3.1在它自己的目录中, 那么Windows将不
+使用Safari计算机所配的专用驱动程序.
+
+
+使用TIGA显示器驱动程序
+───────────
+    如果你正在使用TIGA显示器驱动程序, 那么在运行Setup将Windows升级之前, 必须自己
+加载MS-DOS驱动程序TIGACD.EXE. 否则, Windows将不能升级.
+
+    Windows安装成功后, 当它在386标准方式下运行时, 通过从WINSTART.BAT文件中加载
+TIGACD.EXE, 可以增加非Windows应用程序可用的常规内存容量. WINSTART.BAT只在386增强
+方式下运行. 如果想在标准方式下运行Windows, 必须自己加载TIGACD.EXE. 更详细的信息
+请参阅README.ERI联机文档.
+
+
+与Windows 3.1版本不兼容的显示器
+───────────────────────
+    某些显示适配器在Windows 3.1下会产生一些问题,其中最严重的问题是运行Windows 
+Setup时, 系统失败. 如果你遇到这个问题, 运行Custom Setup, 并选择一个标准显示类型,
+例如VGA, 这是Windows 3.1所提供的.
+
+    对于其它显示驱动程序, Windows 可能会安装成功,但是TrueType字体不能正确地显示
+在屏幕上.
+
+    更新的驱动程序可以从Windows Driver Library (WDL)中得到, 也可以从显示器厂商或
+销售商处得到. 有关如何获得WDL的信息, 请参阅《Microsoft Windows 入门手册》一书.
+
+    下列显示适配器可能产生问题:
+
+-  ATI Graphics Ultra 和 Vantaga
+
+   注: 这些适配器是与8514/a兼容的, 在Windows 3.1提供的8514/a驱动程序
+       上运行良好.			    
+
+-  Graphic Software Systems公司的所有DGIS显示适配器 (Direct Graphics Interface 
+   Standard). 包括下列:
+    NEC MultiSynch Graphic Engine (MGE)
+    Zenith Z-649
+    HP IGC-10, IGC-20
+    GSS 1000系列
+
+   注: 一些基于DGIS的适配器是与TIGA兼容的, 并且在使用适当的TIGACD.EXE MS-DOS 驱
+       动程序和Windows 3.1提供的TIGA驱动程序时, 运行良好.
+
+-  HP Ultra VGA 
+-  IBM Image Adapter/A
+-  Matrox MG Series/M-WIN Series
+-  Palettized VGA 640×480, 16色 (Windows Multimedia Extensions 1.0版本提供)
+-  Radius SVGA MultiView
+
+-  Appian, Inc.所有的RGDI (Renaissance Graphics Device Interface)显示适配器. 包
+   括下列:
+     Appian Rendition II, IIe, II/XE 和 III
+     Appian GV1024
+     Decpc 433
+
+-  所有的S3适配器, 包括下列:
+     Orchid Fahrenheit 1280
+     STB WIND/X
+     Diamond Stealth VRAM
+
+
+使用Stacker
+──────
+    如果你正在使用Stacker压缩硬盘, 在安装Windows前, 你必须采取如下步骤:
+
+*   如果你想使用Windows的交换文件,你必须将交换文件设置在未压缩的驱动器上. 当安装
+Stacker时, 可以保留至少1兆字节(MB)未被压缩的存储空间, 用于存放系统文件. 为了给交
+换文件保留足够的存储空间, 建议未压缩的磁盘空间总数至少等于两倍的系统内存数量. 例
+如, 如果你的系统有4MB内存, 你应至少保留8MB未被压缩的磁盘空间.
+
+    如果已经安装了Stacker, 而未压缩的磁盘空间不够一个交换文件使用, 你可以运行由
+Stacker提供的实用程序STAC来增加未压缩的磁盘空间. 如果需要更多的信息, 请参阅
+Stacker的文档.
+
+*   如果你正在使用Stacker 2.0以上版本, Windows Setup将修改CONFIG.SYS文件和
+AUTOEXEC.BAT文件. 当Setup修改完成后, 它将显示消息, 告诉你所做的修改. 如果你已经
+用Stacker交换初启驱动器, 当你再次启动系统时, Stacker将问你是否要更新CONFIG.SYS文
+件或AUTOEXEC.BAT文件, 你最好更新它们.
+
+    如果你正在使用Stacker 2.0以前版本, 你可能需要自己修改CONFIG.SYS文件和
+AUTOEXEC.BAT文件. 如果需要更多的信息, 请参阅"自己修改CONFIG.SYS文件和
+AUTOEXEC.BAT文件"一节的内容.
+
+*   为了得到最好的性能, 不要使用SMARTDrive去高速缓存压缩驱动器. 你只需要高速缓存
+(Cache)未压缩驱动器. 你可以在CONFIG.SYS文件中用包括选项的SMARTDRV.EXE行来标明哪
+个驱动器作为高速缓存.
+
+    例如, 如果Stacker Swap实用程序交换了驱动器C和D, 那么C是压缩的, 而D是未压缩
+的, 你可以在CONFIG.SYS文件中包括下面这行:
+
+    device=\windows\smartdrv.exe C- D+
+
+   有关交换文件和如何使用SMARTDrive的更多信息, 请参阅《Microsoft Windows 用户手
+册》.
+
+
+自己修改CONFIG.SYS文件和AUTOEXEC.BAT文件
+────────────────────
+    在安装Windows时, Setup经常在Windows目录中放置HIMEM.SYS、SMARTDRV.EXE和
+EMM386.EXE文件. 如果Windows目录并不在开机时可用的磁盘上,例如在一个可更换的或非
+本地磁盘上, 或者Setup测试到下列条件之一, Setup将不修改CONFIG.SYS文件和
+AUTOEXEC.BAT文件.
+
+-   自举驱动器已经被一个磁盘压缩实用程序修改.
+
+-   CONFIG.SYS文件包含对块设备驱动器的引用.
+
+-   硬盘上没有足够的可用空间用来拷贝文件.
+
+-   这些文件已经安装在系统中, 并且Setup不能改写它们(它们是只读文件).
+
+    相反,Setup将所建议的修改写进CONFIG.WIN文件和AUTOEXEC.WIN文件(或是CONFIG.00x
+文件和AUTOEXEC.00x文件)中. 在这种情况下, 你可以将HIMEM.SYS,SMARTDRV.EXE和
+EMM386.EXE文件移到启动系统时可用的磁盘上, 也可以使用文本编辑器来修改CONFIG.SYS文
+件和AUTOEXEC.BAT文件, 以保证对HIMEM.SYS,SMARTDRV.EXE和EMM386.EXE的任何引用都出现
+在用来为磁盘驱动器安装驱动程序的"device="命令行之后. 可以参考CONFIG.WIN文件和
+AUTOEXEC.WIN文件(或者CONFIG.00x文件和AUTOEXEC.00x)文件进行修改.
+
+
+在PS/2 Model 75或90上配置XGA
+──────────────
+    如果你有一个带XGA的PS/2 Model 75或90, Windows Setup将XGA配置为16色, 640×480
+分辨率的显示适配器. 在安装时请不要改变这一配置. 指定其他不同的XGA的配置, 可能会
+导致Windows安装失败.
+
+    安装Windows成功后, 你可以配置XGA, 以便使用不同的分辨率或256色, 只要你的监视
+器支持这些配置. 有关进一步的指导, 可以参阅联机文档README.WRI中"IBM XGA"一节内容.
+
+    如果PS/2 Model 75使用的是等离子屏幕(plasma screen), 那么仅仅可以使用640x480,
+16色的配置, 如果你改变了这个配置, 那么当你企图启动Windows时,就会返回到MS-DOS的提
+示符下.
+
+
+纠正"Out of Environment Space"错误消息
+───────────────────
+    在启动Windows时, 如果得到"Out of Environment Space"信息, 你可以采取下面措施
+之一.
+
+*   在CONFIG.SYS文件中加入"SHELL="命令行来增加你的环境大小. 有关SHELL命令和如何
+修改CONFIG.SYS文件的内容可以参阅MS-DOS的相应资料.
+
+*   将AUTOEXEC.BAT文件中的SET命令移到该文件的开头, 以便这些命令在加载终止并驻留
+程序(TSR)或驱动程序(如SMARTDrive)的命令行之前运行.
+
+
+如果Windows Setup探测不到网络
+───────────────
+    如果计算机安装了网络, Setup却在系统信息屏幕上指出"No Network", 说明Setup没有
+探测到你的网络. 为了让Setup探测到网络, 在路径中必须包含网络程序文件所在的目录.
+
+    这个问题出现在3Share, 3Open, LAN Manager和MSNet网络中. 如果路径中没有包括网
+络文件所在的目录, 你可以采取下列方法之一:
+
+*   在AUTOEXEC.BAT文件中, 将该目录增加到PATH行.
+
+*   运行Custom Setup, 在系统信息屏幕中指明网络的全路径.
+
+
+运行Windows 3.1时, 使用终止并驻留程序和驱动程序
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    在本文件的"程序清单"部分列出了一些终止并驻留(TSR)程序和驱动程序, 这些程序在
+运行Windows 3.1时, 会导致一些问题. 有些问题你可能会遇到, 包括系统出错或者在屏幕
+上出现一些不正确的显示信息. 在某些情况下, 给出了解决这些问题的步骤.
+
+    当安装Windows 3.1时, Setup搜索AUTOEXEC.BAT文件和CONFIG.SYS文件来确定TSR程序
+和驱动程序, 并且扫描正在运行的TSR程序所占内存. 如果Setup探测到一个有可能导致问题
+的TSR程序正在运行, 它就会显示消息, 询问你是否要继续或退出Setup.
+
+    如果你收到这样的一条消息, 请遵循下列步骤:
+
+1.  在本文件的"程序清单"部分找到该TSR程序, 参照其中的信息, 确定所遇到的问题是否
+    会妨碍Setup成功安装Windows 3.1.
+
+2.  如果所遇到的问题并不影响Windows Setup, 可以按照屏幕上的提示, 继续安装Windows 
+    3.1.
+
+    如果所遇到的问题确实影响Windows Setup, 并且阻碍Windows的成功安装, 按照屏幕上
+    的提示, 退出Setup, 然后完成下面的步骤.
+
+3.  退出TSR程序, 并且在AUTOEXEC.BAT文件和CONFIG.SYS文件中删除所有对该程序的引用,
+    关于更多的信息, 请参阅该TSR程序的文档.
+
+4.  重新启动计算机.
+
+5.  再次运行Windows Setup.
+
+    当Windows 安装成功后, 你可能想要恢复TSR程序.
+
+    并不是所有包含在"程序清单"部分的TSR 程序或驱动程序都能被Setup监测到. Setup所
+能监测的TSR程序和驱动程序都包含在SETUP.INF文件中 "incomptsr1" 和 "incomptsr2" 名
+字下.
+
+
+程序清单
+━━━━
+
+   本部分描述在测试时发现的一些问题. 当你运行Windows 3.1, 使用TSR程序时可能会遇
+到这些问题. 本部分并没有包含所有可能出现的问题.
+
+
+386MAX
+───
+   386MAX文档建议不要设置小于64的EXT参数. 如果设置EXT参数为0, 在标准模式下, 
+Setup和Windows将运行失败. 
+
+   有关在Windows 3.1下运行3886MAX的更多信息, 请参阅联机文档README.WRI.
+
+
+386MAX Disk-Cache 实用程序(QCACHE.EXE)
+───────────────────
+    不要同时使用该实用程序和SMARTDrive, 没有理由在Windows下使用两个磁盘高速缓存
+实用程序, 这里建议你使用Windows 3.1所安装的SMARTDrive.
+
+
+所有Charge 386 3.1版本
+───────────
+    在运行Setup和Windows 3.1时, 内存管理程序ALLEMM4.SYS可能产生问题. 如果你在运
+行这个程序时碰到问题, 建议你使用由Windows 3.1提供的EMM386.EXE和HIMEM.SYS来管理
+内存.
+
+
+Anarkey 4.00版本
+────────
+    对于某些内存配置, 在386增强方式下, 与Windows 3.1一起运行时, Anarkey 4.00版本
+可能会导致一些不可预测的错误. 在极少数情况下, 这个程序还会破坏硬盘数据. 另外, 当
+这个程序运行时, Windows 3.1可能不能启动.
+
+    当Anarkey 4.00版本运行时, 请不要在386的增强方式下运行Windows 3.1.  Anarkey 
+4.01版本可能纠正这些问题, 请与Moderne Software联系以免费升级到Anarkey 4.01版本.
+
+
+Anarkey 4.01版本
+────────
+    如果在标准方式下, 在启动Windows之前已经加载了Anarkey 4.01版本, 那么在Windows
+中启动的MS-DOS Prompt实例下, 不能使用Anarkey 4.01版本. 建议你必要时, 在每一个
+MS-DOS Prompt实例下加载Anarkey.
+
+    在386增强方式下, 在启动Windows之前, 不要加载Anarkey到高位内存区, 否则, 当你
+试图运行应用程序时, 系统就会失败.
+
+
+APPEND (MS-DOS)
+────────
+    在运行Windows 3.1时, 不要使用APPEND实用程序, 该实用程序妨碍Windows和Windows
+应用程序, 使它们不能为所使用的文件产生合法的Well-Formed-Path(WFP)名(WFP是文件的
+完整名称, 包括驱动器名和从根目录开始的路径全名).
+
+
+ASP Integrity Toolkit 3.7版本
+───────────────
+    该产品是一个防毒程序, 在运行Windows Setup时, 可能产生问题, 诸如系统出错, 自
+动重启系统以及不能使用键盘. 在安装Windows 3.1之前, 应该关闭该工具包的保护功能. 
+如需了解更多的有关信息, 请参阅ASP的完整文档.
+
+   注: 安装Windows可以看作是系统管理任务. ASP Intgrity Toolkit文档指导你在执行这
+       些任务时如何关闭保护功能.
+
+
+Autocon 2.0e版本
+────────
+    在你启动系统时, AutoCon可以让你选择多达五十种不同的配置, 为了做到这点, 当你
+在AUTOCON中重新启动系统时, 它将根据自己的数据库(AUTOCON.BAT)来修改AUTOEXEC.BAT
+和CONFIG.SYS文件.
+
+    Windows Setup只修改CONFIG.SYS和AUTOEXEC.BAT文件的开始部分. 如果你想在Windows
+中使用特殊的配置, 你必须运行Autocon, 然后在该数据库中手工地编辑你所需要的配置. 
+必须是在安装完Windows之后进行这些操作. 为了使所作的修改有效, 必须在Autocon中重新
+启动系统, 更加详细的信息请参见Autocon文档.
+
+
+Bootcon 1.60版本
+────────
+    使用Bootcon, 你可以在CONFIG.SYS文件和AUTOEXEC.BAT文件中保留不同的系统配置.
+当你启动系统时, 可以从菜单中选择所需要使用的配置.
+
+     Windows Setup修改CONFIG.SYS文件和AUTOEXEC.BAT文件的开始部分. 在安装完
+Windows后, 你必须编辑这些文件中包含你想使用的其他配置部分. 更加详细的信息请参见
+Bootcon文档.
+
+
+BOOT.SYS
+────
+    使用BOOT.SYS, 你可以在CONFIG.SYS文件和AUTOEXEC.BAT文件中保留不同的系统配置.
+当你启动系统时, 可以从菜单中选择所需要使用的配置.
+
+    Windows Setup修改CONFIG.SYS文件和AUTOEXEC.BAT文件的开始部分. 在安装完Windows
+后, 你必须编辑这些文件中包含你想使用的其他配置部分. 更加详细的信息请参见BOOT.SYS
+文档.
+
+
+CACHE.EXE Disk-Cache 实用程序
+───────────────
+   在运行Windows 3.1时, 不要使用两个磁盘高速缓存实用程序. 这里建议你使用Windows
+3.1提供的SMARTDrive, 并在CONFIG.SYS文件和AUTOEXEC.BAT文件中删除所有对其它磁盘高
+速缓存实用程序的引用(如果探测到CACHE.EXE, Setup将从CONFIG.SYS文件中删除它).
+
+
+CACHE.SYS Disk-Cache 实用程序
+───────────────
+   这个磁盘高速缓存实用程序不能与SMARTDrive同时使用.这里建议你使用Windows 3.1
+提供的SMARTDrive, 并在CONFIG.SYS文件和AUTOEXEC.BAT文件中删除所有对其它磁盘高速缓
+存实用程序的引用(如果探测到CACHE.EXE,Setup将从CONFIG.SYS文件中删除它).
+
+
+CED 1.0e版本
+──────
+    在运行Windows 3.1时, 使用CED可能会导致系统失败等问题. 这里建议你不要在运行
+Windows 3.1时使用它.
+
+
+Central Point Anti-Virus 1.1版本(VSAFE.COM/VSAFE.SYS)
+───────────────────────────
+    在安装Windows 3.1时, 不应当加载VSAFE.COM/VSAFE.SYS, 否则Setup不能正常运行. 
+在安装完Windows 3.1后, 可以装入VSAFE.
+
+    因为Windows用磁盘进行存储交换, 在运行Windows时, 应该关闭VSAFE的写保护选项.
+
+    更详细的信息请参阅Central Point Anti-Virus文档.
+
+
+CMDEDIT.COM 2.0版本(日期12-6-91)
+────────────────
+    在启动Windows之前, 如果装入这个命令行编辑器, 在386增强方式下,运行多个MS-DOS 
+Prompt时, 该程序将引起一个General Protection Fault错误. 另外, 当Windows在标准方
+式下运行时, 不能从MS-DOS Prompt下加载该程序.
+
+
+Cubit 3.01版本
+───────
+    在运行Windows 3.1时, 如果使用Cubit, 那么不要对Windows系统目录或任何通过
+CONFIG.SYS装入的文件进行压缩. 压缩这些文件可能引起问题.
+
+    在升级到Windows 3.1之前, 一定要保证硬盘中早期的Windows版本未被压缩. 在
+Windows 3.1安装成功后, 可以再压缩这些文件.
+
+
+Data Physician Plus 2.0版本(VirALERT)
+───────────────────
+    建议你在运行VirALETR时, 不要安装Windows. 如果你进行安装, 在Setup 运行时, 
+VirALERT每隔几秒钟就显示一个警告信息.
+
+    在Windows安装成功后, 你可以运行VirALERT. 同时按下<ALT>键和V键就显示VirALERT
+菜单. 你可以使用该菜单中的命令来打开或关闭VirALERT.
+
+
+DOSCUE.COM命令行编辑器
+───────────
+    在运行Windows时, 如果使用DOSCUE命令行编辑器, 将产生不可预测的结果.  建议在运
+行Windows 3.1时, 不要使用这个编辑器.
+
+
+Doubledisk 2.5版本
+─────────
+    在运行Windows 3.1时, 如果使用Doubledisk, Windows 3.1可能试图存取一个"虚拟"
+(phantom) 的磁盘驱动器. 当你使用Doubledisk生成一个压缩驱动器时, 就会出现虚拟驱动
+器. 例如, 如果机器中存在A, B和C 驱动器, 当你使用Doubledisk生成F驱动器时, Windows
+3.1和MS-DOS就认为驱动器D和E是合法驱动器, 即便它们实际上并不存在. 使用DRVOFF实用
+程序可以阻止Windows识别虚拟驱动器. 与Vertisoft联系以便订购DRVOFF实用程序的拷贝.
+
+
+FASTOPEN (MS-DOS)
+─────────
+    FASTOPEN是一个RAM驻留实用程序. 如果FASTOPEN与磁盘归整(disk-defragmenting)实
+用程序一起使用, 文件分配表将会出现问题. 在低速存储器的情况下, 为了保证Windows 
+3.1正常运行, 可以删除FASTOPEN.
+
+
+Flash Disk-Cache 实用程序(FLASH.EXE)
+──────────────────
+    这个磁盘高速缓存实用程序不能与SMARTDrive同时使用. 没有必要在Windows下使用两
+个磁盘高速缓存实用程序. 建议你使用Windows 3.1所安装的SMARTDrive.
+
+
+Graphics (MS-DOS)
+─────────
+    在Windows中MS-DOS Prompt下加载Graphics, 在打印时, 会产生不可预测的结果. 这个
+活动的MS-DOS Prompt将它的输出送给打印机. 多个MS-DOS Prompt的切换使得打印机作业混
+乱.
+
+
+HPEMM386.SYS和HPEMM486.SYS
+─────────────
+    在386增强方式下, 运行Windows时, 这些扩展内存管理程序与Windows不兼容. 如果你
+打算在386增强方式下运行Windows, 建议你采用EMM386.EXE来管理扩充内存.
+
+
+HPMM.SYS - HP Memory Manger
+──────────────
+    当运行HPMM.SYS时, 不能正确安装Windows 3.1, 也不能在标准方式下运行Windows 
+3.1. 在安装Windows 3.1之前, 你应该从CONFIG.SYS文件和AUTOEXEC.BAT文件中删除所有对
+HPMM.SYS的引用.
+
+
+Hyperdisk Disk-Cache 实用程序
+───────────────
+    这个磁盘高速缓存实用程序不能与SMARTDrive同时使用. 没有必要在Windows下使用两
+个磁盘高速缓存实用程序. 建议你使用Windows 3.1所安装的SMARTDrive.
+
+
+IBM VDISK.SYS (RAM Disk 实用程序)
+─────────────────
+    VDISK.SYS与Windows不兼容, 因为它占用了运行Windows时所需的扩展内存. 这个实用
+程序阻碍任何与XMS兼容的内存管理程序的加载.
+
+
+IEMM.SYS Memory Manager
+────────────
+    IEMM.SYS内存管理程序与Windows不兼容, 建议你从CONFIG.SYS文件和AUTOEXEC.BAT文
+件中删除所有对IEMM.SYS的引用, 而使用Windows 3.1所提供的EMM386.EXE来管理内存.
+
+
+ICACHE.SYS Disk-Cache 实用程序
+───────────────
+    不要在Windows 3.1下使用两个磁盘高速缓存实用程序. 建议你使用Windows 3.1所提供
+的SMARTDrive, 并从CONFIG.SYS文件和AUTOEXEC.BAT文件中删除所有对其他磁盘高速缓存实
+用程序的引用. (如果ICACHE.SYS被探测到, Setup将从CONFIG.SYS文件中删除它.)
+
+
+IBMCACHE.SYS Disk-Cache 实用程序
+────────────────
+    不要在Windows 3.1下使用两个磁盘高速缓存实用程序. 建议你使用Windows 3.1所提供
+的SMARTDrive, 并从CONFIG.SYS文件和AUTOEXEC.BAT文件中删除所有对其他磁盘高速缓存实
+用程序的引用. (如果IBMCACHE.SYS被探测到, Setup将从CONFIG.SYS文件中删除它.)
+
+
+Intel Expanded-Memory Emulater (ILIM386.SYS)
+──────────────────────
+    ILIM386.SYS扩展内存仿真器, 是Intel Inboard/386的产品, 但与Windows 3.1不兼容.
+建议在安装Windows 3.1之前, 从CONFIG.SYS文件和AUTOEXEC.BAT文件中删除所有对这个仿
+真器的引用.
+
+
+JOIN (MS-DOS)
+───────
+    在运行Windows 3.1时, 不要增加或删除"连接的"("joined")驱动器. 如果在安装
+Windows 3.1之前, 使用JOIN命令, 但并不在Windows MS-DOS Prompt下改变"连接的"驱动器
+状态, Windows 3.1将正常工作. 建议你若打算运行Windows 3.1, 请务必不要使用"连接的"
+驱动器.
+
+
+Artisoft 的 KBFLOW TSR 
+───────────
+    在启动Windows 3.1之前, 如果加载了Artisoft提供的KBFLOW TSR实用程序, 那么在
+Windows中启动MS-DOS Prompt时, 系统可能失败.
+
+
+KEYB.COM (MS-DOS)
+─────────
+    如果你使用命令行选项来加载KEYB.COM, 建议你在启动Windows之前加载它. 该程序加
+载后, 你可以在任何时候, 在Windows MS-DOS Prompt下改变键盘配置. 否则, 当你在
+MS-DOS Prompt下使用带有一个选项KEYB命令时, 会遇到问题. 但是, 在任何时候, 你都可
+以使用无选项的KEYB命令来显示代码页(code-page)信息.
+
+
+Lansight 2.0版本
+────────
+    Lansight实用程序可以用来控制和监视其它连结在Novell网络上的工作站. 在某些情况
+下, Lansight 2.0版本可能会引起工作站运行Windows 3.1失败.
+
+
+Lasertool Control Panel 2.2版本
+────────────────
+    如果你从Windows 3.1中加载Lasertool Control Panel程序(PCPANEL.EXE)2.2版本, 你
+的系统可能会失败. 只有安装Windows之前加载该程序, 该程序才能正常工作.
+
+
+Le Menu 1.0版本
+────────
+    运行Windows 3.1时, 如果使用LeMenu 1.0版本, 当启动Windows MS-DOS Prompt时, 一
+些比如PATH, PROMPT和WINDIR的环境信息可能会丢失. 如果你想使用Le Menu菜单命令启动
+Windows 3.1, 建议你将Windows 3.1设置为一个批处理文件菜单命令, 以便COMMAND.COM能
+在启动Windows 3.1前加载. 更详细的信息请参阅Le Menu文档.
+
+
+LOCKIT 3.3版本(PC Vault,Secure It)
+─────────────────
+    这些程序的3.3版本将占用WIN.INI文件中"load="命令行得到的空间. 较新的版本将改
+正这一问题.
+
+
+Logitech Mouse Software 5.0/6.0版本(CLICK,LOGIMENU)
+──────────────────────────
+    如果你想在Windows MS-DOS Prompt下使用CLICK和LOGIMENU, 你必须从MS-DOS Prompt
+下装入这些TSR程序, 即使你在启动Windows之前已经装入它们. 当你退出Windows, 为了使
+这些TSR程序能在Windows外的命令提示符下正常工作, 你必须重新加载这些TSR程序, 即使
+你在Windows MS-DOS Prompt中已经装入它们. 
+
+
+Mace Disk-Cache 实用程序(MCACHE.SYS)
+──────────────────
+    与SMARTDrive一起使用时, 这个磁盘高速缓存实用程序不能正常工作, 建议你使用由
+Windows 3.1提供的SMARTDrive, 并从CONFIG.SYS文件和AUTOEXEC.BAT文件中删除所有对其
+它磁盘高速缓存实用程序的引用. (如果Mace被探测到, Setup将从CONFIG.SYS文件中删除
+它).
+
+
+Maximizer Memory Manager (MAXIMIZE.COM)
+────────────────────
+    如果你正在使用Maximizer内存管理程序, 你将不能正确安装和启动Windows, 一定要确
+保在Windows 3.1中仅使用一个内存管理程序. 建议你使用Windows 3.1所安装的HIMEM.SYS
+和EMM386.EXE.
+
+
+MIRROR (MS-DOS)
+────────
+    如果在标准方式下, 通过使用Run命令, 从Windows 3.1中加载MIRROR, 那么你就不能使
+用 MIRROR /U 命令从内存中删除它. 这会导致一个错误消息的出现.
+
+
+NDOSEDIT.COM (日期1-1-84)
+─────────────
+    加载这个命令行编辑器时, 你可能会遇到问题. 另外, 在运行Windows 3.1时, 也会产
+生不可预测的结果.
+
+
+NetRoom Memory Manager (RM386.SYS)
+─────────────────
+    对于NetRoom的某些较早版本, 在安装Windows时, 你可能会遇到一些问题. 在这个情况
+下, 请与Helix Software联系以获得一个NetRoom的较新版本.
+
+
+NewSpace 1.07版本
+─────────
+    这个磁盘压缩实用程序与Windows 3.1不兼容, 可能会产生某些问题.
+
+
+Norton Anti-Virus 1.0版本
+─────────────
+    如果在安装Windows之前, 加载了Anti-Virus 1.0版本, Setup可能失败. 建议你与
+Symantec联系以取得该实用程序的最新版本.
+
+
+Norton Desktop for Windows (EP.EXE)
+──────────────────
+    如果这个数据恢复程序Erase Protect (EP.EXE)是从AUTOEXEC.BAT文件中加载的, 在安
+装Windows 3.1时, 你应该关闭它, 尤其是在从Windows的以前版本进行升级时. Erase  
+Protect试图保存所有被删除的文件, 因此运行Setup时, 可能引起磁盘空间不够.
+
+    建议运行Erase Protect时, 使用永久的交换文件, 而不是临时的交换文件. 如果你使
+用临时的交换文件, 你需要将带有.TMP或.SMP扩展名的文件排除在删除保护之外.
+
+
+Norton Utility 5.0版本(DISKREET, NCACHE)
+────────────────────
+    这个程序与Windows 3.1不兼容, 可能会导致系统失败. 为了纠正这些问题, 建议你升
+级到最新版本的Norton实用程序.
+
+
+Norton Utility 6.01版本(NCACHE)
+────────────────
+    NCACHE的某些版本可能会妨碍你成功安装和启动Windows 3.1. 当Windows在标准方式下
+运行时, 系统可能会失败, 尤其是当NCACHE设置为EMS高速缓存时. 建议不要将NCACHE设置
+为EMS高速缓存, 而将NCACHE设置成XMS高速缓存可能会解决问题.
+
+    在使用NCACHE时, 你可能会遇到其他问题. 该实用程序的新版本可能会纠正这些问题.
+可以与Symantec公司联系以获得更新版本. 同时, 也可以使用Windows 3.1所提供的
+SMARTDrive.
+
+
+Norton Utility 6.01版本(DISKMON)
+────────────────
+    建议不要使用DISKMON 6.01版本.
+
+
+PCED 2.00版本
+───────
+    不要加载PCED命令行编辑器到高位内存. 当Windows在386增强方式下运行时, 如果将该
+编辑器加载到高位内存, 将产生不可预测的结果(例如, 系统失败). 如果你在启动Windows
+之前加载该程序, 那么当Windows在标准方式下运行时, 该程序可能无法使用.
+
+
+PCKEY.EXE (MultiSoft Keyboard Enhancer和Command-Line Stack)
+──────────────────────────────
+    在运行Windows 3.1时, 如果你同时运行几个非Windows应用程序, PCKEY.EXE将不能正
+常工作. 在启动Windows之前, 建议你卸载PCKEY.EXE.
+
+
+PC-Kwik Disk Accelerater
+────────────
+    当Windows在386增强方式下运行时, 如果使用PC-Kwik, 请一定确保使用的是3.55 或更
+新版本, 并且PC-Kwik在扩展内存中而不在扩充内存中. 如果想获得PC-Kwik的更新版本, 请
+与Multisoft联系.
+
+
+PC-Kwik Disk-Cache Utility (PC-KWIK.EXE)
+────────────────────
+    在使用SMARTDrive的同时, 不要使用这个磁盘高速缓存实用程序. 没有理由在Windows
+中使用两个磁盘高速缓存实用程序. 建议你使用Windows 3.1提供的SMARTDrivce.
+
+
+PC-Kwik 1.59版本(PCK.EXE, PSKSCRN.EXE, PCKEY.COM)
+─────────────────────────
+    如果在安装Windows 3.1之前装入PC-Kwik 1.59版本, Setup可能失败. PC-Kwik 2.0版
+本可能纠正这个问题.
+
+
+PCSXMAEM.SYS Utility
+──────────
+    这个实用程序与Windows不兼容. 在安装Windows 3.1之前, 你应从CONFIG.SYS文件和
+AUTOEXEC.BAT文件中去掉所有对该程序的引用. PCSXMAEM.SYS与XMAEM.SYS有些类似, 它只
+是被换名并稍微作了修改. IBM PC/3270仿真器的当前版本提供该程序.
+
+
+PCSX2EMS.SYS
+──────
+    如果Windows被加载在安装有XMA板的计算机上, 那么PCSXZEMS.SYS将与Windows一起正
+常运行. 否则, 这个程序与Windows不兼容. IBM PC/3270仿真器提供PCSXZEMS.SYS.
+
+
+PC Tools Deluxe 7.1版本(DATAMON)
+────────────────
+    如果加载PC Tools DATAMON时使用了\SENTRY+选项, 那么当使用磁盘低位空间时, 
+Setup可能失败. 加载PC Tools DATAMON时, 不要使用\SENTRY+ 的选项.
+
+    不要在加载SMARTDrive后加载DATAMON, 否则, 你的系统将会失败.  有关如何卸载
+DATAMON的更多信息可参阅PC Tools 的文档.
+
+
+PC Tools Deluxe 6.0版本(DESKTOP)
+────────────────
+    在标准方式下, 如果在Windows MS-DOS Prompt下启动PC Tools, 系统可能会失败. 在
+增强方式下, 系统会重新启动. 在Windows MS-DOS Prompt下使用MS-DOS命令时也会出现这
+些问题.
+
+    PC Tools 7.0版本可能解决这些问题. 但是, 如果在Windows 3.1启动前, 已经加载了
+DESKTOP, 那么不要在MS-DOS Prompt下加载DESKTOP. 否则, 当你退出Windows时, 系统可能
+会失败. 建议通过Windows 3.1提供的PIF(程序信息文件)运行DESKTOP.
+
+
+PC Tools Deluxe 7.1版本(VDEFEND)
+────────────────
+    在运行Setup之前, 如果安装了VDEFEND, Setup可能无法正常工作. 你可以在安装了
+Windows 3.1之后, 再加载VDEFEND.
+
+
+PC Tools Disk-Cache Utility (PC-CACHE.COM)
+─────────────────────
+    不要在使用SMARTDrive的同时, 使用这个磁盘高速缓存实用程序. 没有理由在Windows
+下使用两个磁盘高速缓存实用程序. 建议使用Windows 3.1提供的SMARTDrive.
+
+
+PRINT (MS-DOS)
+───────
+    如果在网络打印机上打印几个大文件, 并从网络上运行Windows Setup, 那么当Setup生
+成程序管理器(Program Manager)组时, 系统可能会失败.
+
+
+Printer Assist 4.20版本
+────────────
+    在286和386网络系统中, 使用Printer Assist TSR程序, 可以与其他工作站共享一台
+工作站打印机. 当该程序加载后, 某些Windows应用程序(如Microsoft Word for Windows)
+将与正确输出一起, 打印扩展的ASCII字符.
+
+
+PYRO! 1.0版本
+───────
+    如果在启动Windows 3.1之前, 加载了这个屏幕保护程序, 那么当该屏幕保护程序使用
+后, 可能不能恢复Windows 3.1屏幕.
+
+
+QMAPS Memory Manager 5.16版本
+───────────────
+    如果你正在使用QMAPS内存管理程序, 可能无法安装和启动Windows. 该程序的新版本可
+能解决了这些问题. 你可以与Quadtel联系, 以获得QMAPS的更新版本.同时, 你最好使用
+Windows 3.1提供的HIMEM.SYS和EMM386.EXE来管理内存.
+
+
+RAMTYPE.SYS - AST RAMpage! Boards
+─────────────────
+    RAMTYPE.SYS驱动程序与Windows不兼容. 建议在安装Windows 3.1之前, 删除它. 如果
+你从CONFIG.SYS文件中加载该驱动程序, 请按如下所示, 将该驱动程序命令行注释掉:
+
+     rem RAMTYPE.SYS
+
+    去掉了RAMTYPE.SYS, Windows 3.1将正确运行. 但是, 那些依赖于RAMTYPE.SYS的其他
+驱动程序将不能加载, 应用程序也无法使用系统的扩充内存.
+
+    安装完Windows之后, 你可以在Windows中使用该程序1.2以及更新版本. 如果你在一台
+IBM PS/2 或微通道体系结构(Micro Channel Architecture)计算机上使用早期的版本, 并
+且RAMpage!板配置用于扩展内存和扩充内存, 那么在安装完Windows后, 你需要将AST 
+RAMTYPE.SYS驱动程序升级. 你也需要从CONFIG.SYS文件中去掉"rem"命令, 以便
+RAMTYPE.SYS能正常加载.
+
+
+Secretdisk Ⅱ Disk-Cache Utility (FAST512.SYS)
+───────────────────────
+    在使用SMARTDrive的同时, 这个磁盘高速缓存实用程序不能正常工作. 建议你使用
+Windows 3.1提供的SMARTDrive, 并从CONFIG.SYS文件和AUTOEXEC.BAT文件中去掉所有对其
+它磁盘高速缓存实用程序的引用. (如果这个实用程序被探测到了, 那么Setup将从
+CONFIG.SYS中删除它).
+
+
+SideKick 1.0和2.0版本以及SideKick Plus
+───────────────────
+    在Windows 3.1下, 将Sidekick当作TSR程序来运行, 就可能会遇到各种的问题. 建议你
+使用一个PIF(程序信息文件), 将Sidekick当作非Windows应用程序来运行, 而不是作为TSR
+程序.
+
+
+SoftIce Debugger
+────────
+    如果安装了SoftIce, 在启动该程序的Windows部分时, Setup将运行失败. 建议你在安
+装Windows 3.1之前,
+
+将SoftIce卸载.
+
+
+SpeedFXR
+────
+    将该程序作为一个TSR程序运行时, 该程序与Windows 3.1不兼容. 它试图增加软盘驱动
+器的速度, 相反只会降低速度. 为了得到最佳效果, 在加载SpeedFXR时, 使用-X选项, 这样
+会防止因它驻留内存而影响软盘驱动器的速度.
+
+
+SUBST (MS-DOS)
+───────
+    在运行Windows 3.1时, 不要增加或删除"被替代"的驱动器. 如果在安装Windows之前使
+用了SUBST命令, 但并没有在Windows MS-DOS Prompt下改变"被替代"的驱动器状态, 那么
+Windows 3.1就能正常工作.
+
+
+Super PC-Kwik Disk-Cache Utility (SUPERPCK.EXE)
+────────────────────────
+    不要在使用SMARTDrive的同时, 使用这个磁盘高速缓存实用程序. 没有理由在Windows
+下使用两个磁盘高速缓存实用程序. 建议你使用Windows 3.1安装的SMARTDrive.
+
+
+Trantor T100 Host Adapter Driver (TSCSI.SYS)
+──────────────────────
+    (对于SCSI硬盘驱动器而言)--如果你使用Trantor 100驱动程序(TSCSI.SYS), 你必须使
+用4.33d或更新的版本. 早期的版本将SCSI硬盘驱动器作为一个可更换的驱动器, 这样在使
+用文件管理器(File Manager)时会产生一些问题, 比如在格式化硬盘时系统失败, 或者在删
+除文件时出现不可预测的结果. 如果要获得更新的驱动程序, 请与Trantor systems有限公
+司联系.
+
+
+UMB PRO 1.07版本
+────────
+    如果你正在使用UMB PRO, 那么在标准方式下运行Windows时, 可能遇到一些问题. 在有
+些情况下, 系统失败. 一定要确保在Windows 3.1下只使用一个内存管理程序. 建议你使用
+Windows 3.1安装的HEMEM.SYS 和 EMM386.EXE进行内存管理.
+
+
+Vaccine
+────
+    如果加载了Vaccine, 在试图修改CONFIG.SYS文件和AUTOEXEC.BAT文件时, Setup就会出
+错. 在安装Windows 3.1之前, 应该卸载Vaccine. 如果加载了Vaccine, 运行Windows时, 还
+会遇到象响铃(beeping)等等的问题.
+
+
+VIREX-PC 1.11版本
+─────────
+    如果加载了VIREXPC.COM, 当KRNL386.EXE执行写操作时, Windows Setup和Windows 3.1
+将出错. 另外, 当第一次加载Windows 3.1时, 就会返回到MS-DOS提示符下.
+
+
+Virus Prevention Plus 5.0版本
+───────────────
+    如果加载了Virus Prevention Plus, 你可能无法成功地安装Windows 3.1. 在386增强
+方式下运行Windows 3.1时, 也会遇到一些问题. 这个键盘锁定程序可能引起Windows运行失
+败.
+
+
+Virusafe 4.0版本
+────────
+    如果这个程序被当作一个TSR程序加载, 那么在安装Windows 3.1时, Setup将会失败. 
+建议选用/C- 选项来加载Virusafe. 使用这个选项后, Virusafe将不检测内存是否改变. 该
+程序的4.5版本解决了这个问题. 更详细的信息可以参阅Virusafe文档.
+
+
+XGAAIDOS.SYS
+──────
+    在加载了XGAAIDOS.SYS的情况下, 如果你在标准方式下, 使用WIN /S选项启动Windows 
+3.1, 当打开封面(logo)时, Windows出现错误.
+
+
+XMAEM.SYS
+─────
+    与XMA相类似, XMAEM.SYS是用来激活扩展内存的设备. 它与Windows 3.1不兼容. 建议
+在安装Windows 3.1之前,从CONFIG.SYS文件和AUTOEXEC.BAT文件中删除所有对它的引用. 
+XMAEM.SYS由IBM DOS 4.0版本提供.
+
+
+XMA2EMS.SYS
+──────
+    如果XMAZEMS.SYS是加载在安装有XMA板的计算机上, 那么Windows将与XMA2EMS.SYS一起
+正常运行. 否则, 该程序与Windows不兼容. XMAZEMS.SYS由IBM DOS 4.0版本提供.

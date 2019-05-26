@@ -1,0 +1,1 @@
+dd  if=pm.bin  of=boot.vfd  bs=512  count=1  conv=notrunc
